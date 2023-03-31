@@ -25,15 +25,20 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     }
 
     override fun onClick(view: View?) {
+
         if(view is Button){
+            val city = view.text.toString()
             if(binding.containerMain == null) {
-                val city = view.text.toString()
+
                 // Aufruf der OutputActivity durch expliziten Intent
                 val intent = Intent(this, OutputActivity::class.java)
                 intent.putExtra("city", city)
                 startActivity(intent)
             }else{
                 val fragment = OutputFragment()
+                val args = Bundle()
+                args.putString("city",city)
+                fragment.arguments = args
 
                 val transaction = supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.container_main,fragment)
